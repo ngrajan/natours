@@ -39,6 +39,7 @@ exports.getAllTours = async (req, res) => {
 exports.getTour = async (req, res) => {
   try {
     const tour = await Tour.findById(req.params.id);
+    // const tour = await Tour.find({ _id: req.params.id });
     // Tour.findOne({_id : req.params.id})
 
     res.status(200).json({
