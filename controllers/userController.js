@@ -1,5 +1,16 @@
 const User = require('../models/userModel');
+const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) {
+      newObj[el] = obj[el];
+    }
+  });
+  return newObj;
+};
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.find();
@@ -10,6 +21,41 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     data: {
       users,
     },
+  });
+});
+
+exports.updateMe = catchAsync(async (req, res, next) => {
+  // check for the password field
+  if (req.body.password || req.body.passwordConfirm) {
+    return next(
+      new AppError(
+        'This is not a route for password update, use UpdateMyPassword route',
+        400,
+      ),
+    );
+  }
+  // find the logged user and update data
+  const filteredBody = filterObj(req.body, 'name', 'email');
+  const updateUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updateUser,
+    },
+  });
+});
+
+exports.deleteMe = catchAsync(async (req, res, next) => {
+  // Find and delete the user
+  await User.findByIdAndUpdate(req.user.id, { active: false });
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
   });
 });
 
@@ -27,12 +73,12 @@ exports.getUser = (req, res) => {
   });
 };
 
-exports.updateUser = (req, res) => {
+exports.updateUser = catchAsync(async (req, res, next) => {
   res.status(500).json({
     status: 'err',
     message: 'This route is yet to defined!',
   });
-};
+});
 
 exports.deleteUser = (req, res) => {
   res.status(500).json({
