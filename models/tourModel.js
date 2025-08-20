@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const validator = require('validator');
+// const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
   {
-    // schema definition
     name: {
       type: String,
       required: [true, 'A tour must have a name'],
@@ -12,7 +11,7 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       maxLength: [40, 'A tour name must have less or equal than 40 character'],
       minLength: [10, 'A tour name must have more or equal than 10 characters'],
-      validate: [validator.isAlpha, 'Tour name must only contain character'],
+      // validate: [validator.isAlpha, 'Tour name must only contain character'],
     },
     slug: String,
     duration: {
@@ -26,11 +25,10 @@ const tourSchema = new mongoose.Schema(
     difficulty: {
       type: String,
       required: [true, 'A tour must have a difficulty'],
-      // !Bug
-      // enum: {
-      //   value: ['easy', 'medium', 'difficult'],
-      //   message: 'Difficulty must be easy, medium, difficult'
-      // },
+      enum: {
+        values: ['easy', 'medium', 'difficult'],
+        message: 'Difficulty is either: easy, medium, difficult',
+      },
     },
     ratingsAverage: {
       type: Number,
@@ -80,6 +78,30 @@ const tourSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    startLocation: {
+      // GeoJSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
   },
   {
     // schema options

@@ -16,9 +16,7 @@ const connect = (uri) => {
 connect(process.env.MONGO_URI);
 
 // read json file
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8'),
-);
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/tours.json`, 'utf-8'));
 
 // importing data to the database
 const importData = async () => {
