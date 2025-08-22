@@ -36,6 +36,7 @@ const tourSchema = new mongoose.Schema(
       default: 4.5,
       min: [1, 'A rating must above have 1'],
       max: [5, 'A must be below 5'],
+      set: (val) => Math.round(val * 10) / 10,
     },
     ratingsQuantity: {
       type: Number,
@@ -112,6 +113,11 @@ const tourSchema = new mongoose.Schema(
     id: false,
   },
 );
+
+// tourSchema.index({ price: 1 }); --> single indexing
+
+// tourSchema.index( {price : 1, ratingsAverage : -1}) --> compound indexing
+tourSchema.index({ slug: 1 });
 
 tourSchema.virtual('durationWeek').get(function () {
   return this.duration / 7;

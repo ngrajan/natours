@@ -13,18 +13,10 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find();
-
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users,
-    },
-  });
-});
-
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
 exports.updateMe = catchAsync(async (req, res, next) => {
   // check for the password field
   if (req.body.password || req.body.passwordConfirm) {
@@ -63,22 +55,12 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'err',
-    message: 'This route is yet to defined!',
+    message: 'This route is not defined: Please use /signup instead',
   });
 };
 
-exports.getUser = (req, res) => {
-  res.status(500).json({
-    status: 'err',
-    message: 'This route is yet to defined!',
-  });
-};
-
-exports.updateUser = catchAsync(async (req, res, next) => {
-  res.status(500).json({
-    status: 'err',
-    message: 'This route is yet to defined!',
-  });
-});
-
+// *Factory functions
+exports.getAllUsers = factory.getAll(User);
+exports.getUser = factory.getOne(User);
+exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
