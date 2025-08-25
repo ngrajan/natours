@@ -118,6 +118,7 @@ const tourSchema = new mongoose.Schema(
 
 // tourSchema.index( {price : 1, ratingsAverage : -1}) --> compound indexing
 tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 
 tourSchema.virtual('durationWeek').get(function () {
   return this.duration / 7;
@@ -176,9 +177,9 @@ tourSchema.pre(/^find/, function (next) {
 // });
 
 // Aggregation Middleware
-tourSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-});
+// tourSchema.pre('aggregate', function (next) {
+//   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+// });
 
 const Tour = mongoose.model('Tour', tourSchema);
 
