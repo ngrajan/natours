@@ -5,16 +5,28 @@
   "license": "ISC",
   "author": "Gokulrajan Natarajan",
   "type": "commonjs",
+  "alias": {
+    "buffer": false,
+    "process": false,
+    "stream": false
+  },
+  "targets": {
+    "main": false,
+    "default": {
+      "source": "public/js/index.js"
+    }
+  },
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js",
-    "dev:js": "parcel public/js/index.js",
-  "build:js": "parcel build public/js/index.js --dist-dir public/js"
+    "dev:js": "parcel public/js/index.js --dist-dir public/js/bundle",
+    "build:js": "parcel build public/js/index.js --dist-dir public/js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
     "axios": "^1.13.4",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
@@ -35,6 +47,7 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
+    "buffer": "^6.0.3",
     "cross-env": "^7.0.3",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",

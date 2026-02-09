@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
@@ -62,6 +63,19 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+  try {
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+    res.status(200).json({ status: 'success' });
+  } catch (error) {
+    console.log(error.response);
+    return next(new AppError('Error logging out', 500));
+  }
+};
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1)Getting token and check
   let token;
@@ -96,29 +110,33 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  if (req.cookies.jwt) {
-    // 1)Verify token
-    const decoded = await promisify(jwt.verify)(
-      req.cookies.jwt,
-      process.env.JWT_SECRET,
-    );
+exports.isLoggedIn = async (req, res, next) => {
+  try {
+    if (req.cookies.jwt) {
+      // 1)Verify token
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        process.env.JWT_SECRET,
+      );
 
-    // 2)Check if user still exists
-    const existingUser = await User.findById(decoded.id);
-    if (!existingUser) {
+      // 2)Check if user still exists
+      const existingUser = await User.findById(decoded.id);
+      if (!existingUser) {
+        return next();
+      }
+      // 3)Check the user changed the password after the token was issued
+      if (existingUser.passwordChangedAfter(decoded.iat)) {
+        return next();
+      }
+
+      res.locals.user = existingUser;
       return next();
     }
-    // 3)Check the user changed the password after the token was issued
-    if (existingUser.passwordChangedAfter(decoded.iat)) {
-      return next();
-    }
-
-    res.locals.user = existingUser;
+  } catch (error) {
     return next();
   }
   next();
-});
+};
 
 exports.restrict =
   (...roles) =>
