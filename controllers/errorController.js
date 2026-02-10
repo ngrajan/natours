@@ -27,31 +27,48 @@ const handleJWTExpireError = () =>
 
 const sendErrorDev = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
       stack: err.stack,
       error: err,
     });
-  } else {
-    res.status(err.statusCode).render('error', {
-      title: 'Something went wrong',
-      msg: err.message,
-    });
   }
+  // console.log('Error', err);
+  return res.status(err.statusCode).render('error', {
+    title: 'Something went wrong',
+    msg: err.message,
+  });
 };
 
 const sendErrorProd = (err, req, res) => {
-  if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
-  } else {
+  if (req.originalUrl.startsWith('/api')) {
+    if (err.isOperational) {
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    }
     // eslint-disable-next-line
     console.error('Error', err);
-    res.status(500).json({ status: 'error', message: 'something went wrong' });
+    return res
+      .status(500)
+      .json({ status: 'error', message: 'something went wrong' });
   }
+
+  if (err.isOperational) {
+    console.log('Error', err.message === '' ? 'No message' : err.message);
+    return res.status(err.statusCode).render('error', {
+      title: 'Something went wrong',
+      status: err.status,
+      msg: err.message,
+    });
+  }
+  // eslint-disable-next-line
+  return res.status(err.statusCode).render('error', {
+    title: 'Something went wrong',
+    msg: 'Please try again later',
+  });
 };
 
 module.exports = (err, req, res, next) => {
@@ -66,6 +83,8 @@ module.exports = (err, req, res, next) => {
     // prototype preserving copy --> deep copy
     let error = Object.create(Object.getPrototypeOf(err));
     Object.assign(error, err);
+    error.message = err.message;
+    error.stack = err.stack;
 
     if (error.name === 'CastError') {
       error = handleCastErrorDB(error);
