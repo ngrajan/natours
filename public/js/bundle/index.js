@@ -717,10 +717,13 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 /* eslint-disable */ require("49bd45b7444bd46d");
 const displayMap = require("cdbdf84fcbdd7284");
 const { login, logout } = require("6fcb90e3df94ec99");
+const updateSettings = require("8e5befcaac4d1ee4");
 // DOM Elements
 const isMap = document.getElementById('map');
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.form--login');
 const logoutBtn = document.querySelector('.nav__el--logout');
+const userDataForm = document.querySelector('.form-user-data');
+const userPasswordForm = document.querySelector('.form-user-password');
 // Delegation
 if (isMap) {
     const locations = JSON.parse(isMap.dataset.locations);
@@ -733,8 +736,33 @@ if (loginForm) loginForm.addEventListener('submit', (e)=>{
     login(email, password);
 });
 if (logoutBtn) logoutBtn.addEventListener('click', logout);
+if (userDataForm) userDataForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    await updateSettings({
+        name,
+        email
+    }, 'data');
+});
+if (userPasswordForm) userPasswordForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    document.querySelector('.btn-save-password').textContent = 'Updating...';
+    const passwordCurrent = document.getElementById('password-current').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('password-confirm').value;
+    await updateSettings({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, 'password');
+    document.querySelector('.btn-save-password').textContent = 'Save password';
+    document.getElementById('password-current').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('password-confirm').value = '';
+});
 
-},{"49bd45b7444bd46d":"dTCHC","cdbdf84fcbdd7284":"k6XpQ","6fcb90e3df94ec99":"fov0Z"}],"dTCHC":[function(require,module,exports,__globalThis) {
+},{"49bd45b7444bd46d":"dTCHC","cdbdf84fcbdd7284":"k6XpQ","6fcb90e3df94ec99":"fov0Z","8e5befcaac4d1ee4":"l3cGY"}],"dTCHC":[function(require,module,exports,__globalThis) {
 "use strict";
 require("f50de0aa433a589b");
 var _global = _interopRequireDefault(require("4142986752a079d4"));
@@ -11143,6 +11171,24 @@ const showAlert = (type, msg)=>{
 };
 module.exports = showAlert;
 
-},{}]},["k2ZJO","f2QDv"], "f2QDv", "parcelRequire11c7", {})
+},{}],"l3cGY":[function(require,module,exports,__globalThis) {
+/* eslint-disable */ const axios = require("77f8dbf347b317db").default;
+const showAlert = require("e1f1df3b11559be0");
+const updateSettings = async (data, type)=>{
+    try {
+        const url = type === 'password' ? 'http://localhost:8000/api/v1/users/updateMyPassword' : 'http://localhost:8000/api/v1/users/updateMe';
+        const res = await axios({
+            method: 'PATCH',
+            url,
+            data
+        });
+        if (res.data.status === 'success') showAlert('success', `${type.charAt(0).toUpperCase() + type.slice(1)} updated successfully!`);
+    } catch (err) {
+        showAlert('error', err.response.data.message);
+    }
+};
+module.exports = updateSettings;
+
+},{"77f8dbf347b317db":"jo6P5","e1f1df3b11559be0":"kxdiQ"}]},["k2ZJO","f2QDv"], "f2QDv", "parcelRequire11c7", {})
 
 //# sourceMappingURL=index.js.map
