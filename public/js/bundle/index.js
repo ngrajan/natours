@@ -7746,7 +7746,7 @@ module.exports = function(it, key) {
 
 },{}],"k6XpQ":[function(require,module,exports,__globalThis) {
 /* eslint-disable */ const displayMap = (locations)=>{
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2stNDUiLCJhIjoiY21nZXVvbTY4MDFoazJrcDk3dmlnZ3NteiJ9.z0xbYPq4O1sKnPyAqYvlBw';
+    mapboxgl.accessToken = undefined;
     const map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/kk-45/cmgexo5uh000601sd8e6gcs9l',

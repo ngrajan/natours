@@ -1,7 +1,6 @@
 /* eslint-disable */
 const displayMap = (locations) => {
-  mapboxgl.accessToken =
-    'pk.eyJ1Ijoia2stNDUiLCJhIjoiY21nZXVvbTY4MDFoazJrcDk3dmlnZ3NteiJ9.z0xbYPq4O1sKnPyAqYvlBw';
+  mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
   const map = new mapboxgl.Map({
     container: 'map', // container : document.getElementById('map') --> this also works.
     style: 'mapbox://styles/kk-45/cmgexo5uh000601sd8e6gcs9l',
