@@ -742,7 +742,6 @@ if (userDataForm) userDataForm.addEventListener('submit', async (e)=>{
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
-    console.log(form);
     await updateSettings(form, 'data');
 });
 if (userPasswordForm) userPasswordForm.addEventListener('submit', async (e)=>{
