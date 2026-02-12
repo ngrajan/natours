@@ -60,7 +60,7 @@
 79C:\Projects\Natours\node_modules\@parcel\package-manager\src\JSONParseStream.js134150056723750742 0
 83C:\Projects\Natours\node_modules\send\node_modules\debug\node_modules\ms\license.md133907975069929306 0
 58C:\Projects\Natours\node_modules\utility-types\SECURITY.md134150056603215320 0
-30C:\Projects\Natours\config.env134153945937556862 0
+30C:\Projects\Natours\config.env134153958729937886 0
 70C:\Projects\Natours\node_modules\mongodb\lib\operations\collections.js133917756678134414 0
 52C:\Projects\Natours\node_modules\sharp\src\common.cc134152856595024792 0
 85C:\Projects\Natours\node_modules\eslint-plugin-node\lib\rules\no-unsupported-features133917756648465257 1
@@ -251,7 +251,7 @@
 81C:\Projects\Natours\node_modules\core-js\library\modules\_object-keys-internal.js134150831404445324 0
 78C:\Projects\Natours\node_modules\@parcel\source-map\dist\wasm-bindings.js.flow134150056629831312 0
 93C:\Projects\Natours\node_modules\@parcel\transformer-babel\node_modules\json5\lib\register.js134150056601983852 0
-49C:\Projects\Natours\public\js\bundle\index.js.map134153946601140840 0
+49C:\Projects\Natours\public\js\bundle\index.js.map134153958456696816 0
 73C:\Projects\Natours\node_modules\function.prototype.name\test\uglified.js133917756664512087 0
 63C:\Projects\Natours\node_modules\mongodb\src\cmap\wire_protocol133917756680128826 1
 47C:\Projects\Natours\node_modules\async-function133917756594752375 1
@@ -402,7 +402,7 @@
 64C:\Projects\Natours\node_modules\update-browserslist-db\utils.js134150054556649881 0
 103C:\Projects\Natours\node_modules\@parcel\runtime-rsc\node_modules\@parcel\utils\test\objectHash.test.js134150056932814540 0
 60C:\Projects\Natours\node_modules\mongoose\types\helpers.d.ts133917756685283200 0
-29C:\Projects\Natours\public\js134152756348285664 1
+29C:\Projects\Natours\public\js134153957772831877 1
 78C:\Projects\Natours\node_modules\caniuse-lite\data\features\permissions-api.js134150054658265978 0
 112C:\Projects\Natours\node_modules\@parcel\transformer-posthtml\node_modules\@parcel\utils\test\DefaultMap.test.js134150056863830348 0
 53C:\Projects\Natours\node_modules\glob-parent\index.js133917756665238467 0
@@ -441,13 +441,13 @@
 51C:\Projects\Natours\node_modules\promise\.npmignore134006043266104915 0
 55C:\Projects\Natours\node_modules\validator\package.json133895615055874824 0
 90C:\Projects\Natours\node_modules\eslint-plugin-react\lib\rules\jsx-closing-tag-location.js133917756650386865 0
-36C:\Projects\Natours\public\js\bundle134153946601180810 1
+36C:\Projects\Natours\public\js\bundle134153958456726777 1
 88C:\Projects\Natours\node_modules\jsx-ast-utils\lib\values\expressions\UnaryExpression.js133917756672984515 0
 74C:\Projects\Natours\node_modules\mongoose\lib\helpers\specialProperties.js133917756684067010 0
 71C:\Projects\Natours\node_modules\type-fest\source\conditional-keys.d.ts133917756700893693 0
 44C:\Projects\Natours\node_modules\uri-js\dist133917729829267793 1
 71C:\Projects\Natours\node_modules\caniuse-lite\data\features\css-zoom.js134150054640977104 0
-39C:\Projects\Natours\public\js\mapBox.js134153946597810104 0
+39C:\Projects\Natours\public\js\mapBox.js134153958452003300 0
 82C:\Projects\Natours\node_modules\@swc\helpers\_\_class_static_private_field_update134150056637323279 1
 64C:\Projects\Natours\node_modules\promise\setimmediate\finally.js134006043272031866 0
 67C:\Projects\Natours\node_modules\mongodb\lib\cmap\auth\providers.js133917756676730250 0
@@ -460,7 +460,7 @@
 75C:\Projects\Natours\node_modules\with\.github\workflows\rollingversions.yml134006043271589853 0
 65C:\Projects\Natours\node_modules\mongodb\src\connection_string.ts133917756680158745 0
 57C:\Projects\Natours\node_modules\core-js\modules\_core.js134150831396237485 0
-45C:\Projects\Natours\public\js\bundle\index.js134153946601000709 0
+45C:\Projects\Natours\public\js\bundle\index.js134153958456586764 0
 57C:\Projects\Natours\node_modules\validator\es\lib\isIn.js133895615051899090 0
 81C:\Projects\Natours\node_modules\caniuse-lite\data\features\css-matches-pseudo.js134150054634314870 0
 76C:\Projects\Natours\node_modules\eslint-plugin-import\lib\rules\namespace.js133917756643840059 0
