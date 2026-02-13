@@ -25,7 +25,11 @@ exports.getTour = catchAsync(async (req, res, next) => {
     return next(new AppError("Can't find a requested page", 404));
   }
 
-  res.status(200).render('tour', { title: `${tour.name} Tour`, tour });
+  res.status(200).render('tour', {
+    title: `${tour.name} Tour`,
+    tour,
+    mapboxToken: process.env.MAPBOX_ACCESS_TOKEN,
+  });
 });
 
 exports.getLoginForm = (req, res) => {

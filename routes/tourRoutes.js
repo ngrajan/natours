@@ -2,6 +2,7 @@ const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
 const reviewRouter = require('./reviewRoutes');
+const imageUploader = require('../utils/imageUploader');
 
 const router = express.Router();
 
@@ -38,6 +39,17 @@ router
   .patch(
     authController.protect,
     authController.restrict('admin', 'lead-guide'),
+    imageUploader.uploadImageFiles('fields', [
+      {
+        name: 'imageCover',
+        maxCount: 1,
+      },
+      {
+        name: 'images',
+        maxCount: 3,
+      },
+    ]),
+    imageUploader.tourImageProcessor,
     tourController.updateTour,
   )
   .delete(
