@@ -1,15 +1,15 @@
+/* eslint-disable */
 const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
+
 const mongoose = require('mongoose');
+const app = require('./app');
 
 process.on('uncaughtException', (err) => {
   // eslint-disable-next-line
   console.log(err.name, err.message);
   process.exit(1);
 });
-
-const app = require('./app');
-
-dotenv.config({ path: './config.env' });
 
 const port = process.env.PORT || 3000;
 

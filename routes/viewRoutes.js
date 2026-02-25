@@ -16,5 +16,5 @@ router.post(
   authController.protect,
   viewController.updateUserData,
 );
-
+router.post('/checkout-page', viewController.getCheckoutPage);
 module.exports = router;

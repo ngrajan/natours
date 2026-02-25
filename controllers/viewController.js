@@ -62,3 +62,9 @@ exports.updateUserData = catchAsync(async (req, res) => {
     user: updatedUser,
   });
 });
+
+exports.getCheckoutPage = (req, res) => {
+  res.status(200).render('checkout', {
+    title: 'Checkout Page',
+  });
+};
