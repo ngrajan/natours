@@ -3,6 +3,7 @@ require('@babel/polyfill');
 const displayMap = require('./mapBox');
 const { login, logout } = require('./auth');
 const updateSettings = require('./updateSettings');
+const { bookTour } = require('./payment.js');
 
 // DOM Elements
 const isMap = document.getElementById('map');
@@ -10,6 +11,7 @@ const loginForm = document.querySelector('.form--login');
 const logoutBtn = document.querySelector('.nav__el--logout');
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
+const bookTourBtn = document.getElementById('book-tour');
 
 // Delegation
 if (isMap) {
@@ -56,5 +58,14 @@ if (userPasswordForm) {
     document.getElementById('password-current').value = '';
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';
+  });
+}
+
+if (bookTourBtn) {
+  bookTourBtn.addEventListener('click', (e) => {
+    e.target.textContent = 'Processing...';
+    const { tourId } = e.target.dataset;
+    console.log('event clicked', tourId);
+    bookTour(tourId);
   });
 }

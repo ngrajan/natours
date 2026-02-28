@@ -110,7 +110,6 @@ const tourSchema = new mongoose.Schema(
     // schema options
     toJSON: { virtuals: true, versionKey: false },
     toObject: { virtuals: true, versionKey: false },
-    id: false,
   },
 );
 
